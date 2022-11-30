@@ -1,0 +1,15 @@
+{
+    "profiles": {
+        "Latest": {
+            "commandName": "Project"
+        },
+        "All": {
+            "commandName": "Project",
+            "commandLineArgs": "All"
+        },
+        "SingleDay": {
+            "commandName": "Project",
+            "commandLineArgs": "Day"
+        }
+    }
+}
