@@ -4,8 +4,7 @@
     {
         public object Part1(string input)
         {
-            var lines = $"{input}{Environment.NewLine}"
-                .GetLines();
+            var lines = input.GetLines().Append("");
             var elfCalories = GetCalories(lines)
                 .Select(g => g.Sum());
 
@@ -14,8 +13,7 @@
 
         public object Part2(string input)
         {
-            var lines = $"{input}{Environment.NewLine}"
-                .GetLines();
+            var lines = input.GetLines().Append("");
             var elfCalories = GetCalories(lines)
                 .Select(g => g.Sum())
                 .OrderByDescending(e => e);
