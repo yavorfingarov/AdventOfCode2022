@@ -56,8 +56,8 @@ namespace AdventOfCode2022
                 var median = (double)(_Times[(_Times.Count / 2) - 1] + _Times[_Times.Count / 2]) / 2;
                 Console.WriteLine(Multiply("=", 79));
                 Console.WriteLine($"{$"    Min time: {_Times.Min(),5:0} ms",79}");
-                Console.WriteLine($"{$" Median time: {median,5:0} ms",79}");
-                Console.WriteLine($"{$"Average time: {_Times.Average(),5:0} ms",79}");
+                Console.WriteLine($"{$" Median time: {Math.Round(median),5:0} ms",79}");
+                Console.WriteLine($"{$"Average time: {Math.Round(_Times.Average()),5:0} ms",79}");
                 Console.WriteLine($"{$"    Max time: {_Times.Max(),5:0} ms",79}");
                 Console.WriteLine($"{$"  Total time: {_Times.Sum(),5:0} ms",79}");
             }
