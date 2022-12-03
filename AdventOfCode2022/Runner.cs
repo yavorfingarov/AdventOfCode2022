@@ -55,17 +55,17 @@ namespace AdventOfCode2022
                 _Times.Sort();
                 var median = (double)(_Times[(_Times.Count / 2) - 1] + _Times[_Times.Count / 2]) / 2;
                 Console.WriteLine(Multiply("=", 79));
-                Console.WriteLine($"{$"    Min time: {_Times.First(),5:0} ms",79}");
-                Console.WriteLine($"{$" Median time: {Math.Round(median),5:0} ms",79}");
-                Console.WriteLine($"{$"Average time: {Math.Round(_Times.Average()),5:0} ms",79}");
-                Console.WriteLine($"{$"    Max time: {_Times.Last(),5:0} ms",79}");
-                Console.WriteLine($"{$"  Total time: {_Times.Sum(),5:0} ms",79}");
+                Console.WriteLine($"{$"    Min: {_Times.First(),5:0} ms",79}");
+                Console.WriteLine($"{$" Median: {Math.Round(median),5:0} ms",79}");
+                Console.WriteLine($"{$"Average: {Math.Round(_Times.Average()),5:0} ms",79}");
+                Console.WriteLine($"{$"    Max: {_Times.Last(),5:0} ms",79}");
+                Console.WriteLine($"{$"  Total: {_Times.Sum(),5:0} ms",79}");
             }
         }
 
         private void RunDayPart(int part, Func<object> dayPart)
         {
-            Console.Write($"Part {part}: ");
+            Console.Write($"Part{part}: ");
             object result;
             _Stopwatch.Restart();
             try
@@ -77,23 +77,9 @@ namespace AdventOfCode2022
                 result = "Not implemented";
             }
             _Stopwatch.Stop();
-            Console.Write($"{result,-63}");
-            PrintTime(_Stopwatch.ElapsedMilliseconds);
-        }
-
-        private void PrintTime(long time)
-        {
-            _Times.Add(time);
-            if (time >= 500 && time < 1000)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-            }
-            else if (time >= 1000)
-            {
-                Console.ForegroundColor = ConsoleColor.DarkRed;
-            }
-            Console.WriteLine($"{time,5} ms");
-            Console.ResetColor();
+            Console.Write($"{result,-64}");
+            Console.WriteLine($"{_Stopwatch.ElapsedMilliseconds,5} ms");
+            _Times.Add(_Stopwatch.ElapsedMilliseconds);
         }
 
         private static string Multiply(string input, int count)
