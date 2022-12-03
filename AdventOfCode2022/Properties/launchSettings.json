@@ -7,7 +7,7 @@
             "commandName": "Project",
             "commandLineArgs": "All"
         },
-        "SingleDay": {
+        "Single": {
             "commandName": "Project",
             "commandLineArgs": "Day"
         }

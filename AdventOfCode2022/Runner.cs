@@ -23,7 +23,7 @@ namespace AdventOfCode2022
         public Runner(RunnerMode runnerMode, string? singleDayName)
         {
             _RunnerMode = runnerMode;
-            _Types = GetType().Assembly.GetTypes()
+            _Types = GetType().Assembly.GetExportedTypes()
                 .Where(t => t.IsClass && !t.IsAbstract && t.IsAssignableTo(typeof(IDay)))
                 .OrderBy(t => t.Name)
                 .AsEnumerable();
@@ -55,10 +55,10 @@ namespace AdventOfCode2022
                 _Times.Sort();
                 var median = (double)(_Times[(_Times.Count / 2) - 1] + _Times[_Times.Count / 2]) / 2;
                 Console.WriteLine(Multiply("=", 79));
-                Console.WriteLine($"{$"    Min time: {_Times.Min(),5:0} ms",79}");
+                Console.WriteLine($"{$"    Min time: {_Times.First(),5:0} ms",79}");
                 Console.WriteLine($"{$" Median time: {Math.Round(median),5:0} ms",79}");
                 Console.WriteLine($"{$"Average time: {Math.Round(_Times.Average()),5:0} ms",79}");
-                Console.WriteLine($"{$"    Max time: {_Times.Max(),5:0} ms",79}");
+                Console.WriteLine($"{$"    Max time: {_Times.Last(),5:0} ms",79}");
                 Console.WriteLine($"{$"  Total time: {_Times.Sum(),5:0} ms",79}");
             }
         }
