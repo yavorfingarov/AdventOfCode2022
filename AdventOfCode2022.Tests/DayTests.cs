@@ -33,7 +33,7 @@ namespace AdventOfCode2022.Tests
         private IDay CreateDay()
         {
             var dayName = GetType().Name.Replace("Tests", null);
-            var dayType = typeof(IDay).Assembly.GetTypes()
+            var dayType = typeof(IDay).Assembly.GetExportedTypes()
                 .Where(t => t.Name == dayName)
                 .Single();
             var day = (IDay)Activator.CreateInstance(dayType)!;
