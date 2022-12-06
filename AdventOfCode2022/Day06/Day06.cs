@@ -4,30 +4,26 @@
     {
         public object Part1(string input)
         {
-            for (var i = 3; i < input.Length; i++)
-            {
-                var hashSet = new HashSet<char>(input.Substring(i - 3, 4));
-                if (hashSet.Count == 4)
-                {
-                    return i + 1;
-                }
-            }
-
-            throw new InvalidOperationException();
+            return GetProcessedCount(input, markerLength: 4);
         }
 
         public object Part2(string input)
         {
-            for (var i = 13; i < input.Length; i++)
+            return GetProcessedCount(input, markerLength: 14);
+        }
+
+        private static int GetProcessedCount(string input, int markerLength)
+        {
+            for (var i = markerLength - 1; i < input.Length; i++)
             {
-                var hashSet = new HashSet<char>(input.Substring(i - 13, 14));
-                if (hashSet.Count == 14)
+                var hashSet = new HashSet<char>(input.Substring(i - markerLength + 1, markerLength));
+                if (hashSet.Count == markerLength)
                 {
                     return i + 1;
                 }
             }
 
-            throw new InvalidOperationException();
+            return input.Length;
         }
     }
 }
