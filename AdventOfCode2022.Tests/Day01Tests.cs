@@ -4,7 +4,7 @@
     {
         public override List<TestCase> TestCasesPart1 => new()
         {
-            new(24000, new[]
+            new(24_000, new[]
             {
                 "1000",
                 "2000",
@@ -25,7 +25,7 @@
 
         public override List<TestCase> TestCasesPart2 => new()
         {
-            new(45000, new[]
+            new(45_000, new[]
             {
                 "1000",
                 "2000",
