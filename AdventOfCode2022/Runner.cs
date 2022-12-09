@@ -55,11 +55,11 @@ namespace AdventOfCode2022
                 _Times.Sort();
                 var median = (double)(_Times[(_Times.Count / 2) - 1] + _Times[_Times.Count / 2]) / 2;
                 Console.WriteLine(Multiply("=", 79));
-                Console.WriteLine("{0,79}", $"    Min: {_Times.First(),5} ms");
-                Console.WriteLine("{0,79}", $" Median: {Math.Round(median),5} ms");
-                Console.WriteLine("{0,79}", $"Average: {Math.Round(_Times.Average()),5} ms");
-                Console.WriteLine("{0,79}", $"    Max: {_Times.Last(),5} ms");
-                Console.WriteLine("{0,79}", $"  Total: {_Times.Sum(),5} ms");
+                Console.WriteLine("{0,79}", $"   Min: {_Times.First(),5} ms");
+                Console.WriteLine("{0,79}", $"Median: {Math.Round(median),5} ms");
+                Console.WriteLine("{0,79}", $"  Mean: {Math.Round(_Times.Average()),5} ms");
+                Console.WriteLine("{0,79}", $"   Max: {_Times.Last(),5} ms");
+                Console.WriteLine("{0,79}", $"   Sum: {_Times.Sum(),5} ms");
             }
         }
 
