@@ -39,7 +39,7 @@ namespace AdventOfCode2022.Tests
 
         public override List<TestCase> TestCasesPart1 => new()
         {
-            new(13140, new[]
+            new(13_140, new[]
             {
                 "addx 15",
                 "addx -11",
