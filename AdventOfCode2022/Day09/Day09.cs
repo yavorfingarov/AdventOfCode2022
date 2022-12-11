@@ -5,7 +5,7 @@
         public object Part1(string input)
         {
             var simulation = new Simulation();
-            simulation.Run(input.GetLines().ToArray());
+            simulation.Run(input.GetLines());
 
             return simulation.GetUniqueTailPositionsCount();
         }
@@ -31,7 +31,7 @@
 
             private (int X, int Y) _Tail = (0, 0);
 
-            public void Run(string[] commands)
+            public void Run(IEnumerable<string> commands)
             {
                 foreach (var command in commands)
                 {
