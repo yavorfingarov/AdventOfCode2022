@@ -9,7 +9,7 @@ namespace AdventOfCode2022.Day11
         {
             var monkeys = input.GetLines()
                 .ChunkOn(l => l == "")
-                .Select(c => new Monkey(c))
+                .Select(c => new Monkey(c, item => item / 3))
                 .ToList();
             var simulation = new Simulation(monkeys);
             simulation.Run(rounds: 20);
@@ -19,16 +19,15 @@ namespace AdventOfCode2022.Day11
 
         public object Part2(string input)
         {
-            throw new NotImplementedException();
+            BigInteger divider = 2 * 3 * 5 * 7 * 11 * 13 * 17 * 19 * 23;
+            var monkeys = input.GetLines()
+                .ChunkOn(l => l == "")
+                .Select(c => new Monkey(c, item => item % divider))
+                .ToList();
+            var simulation = new Simulation(monkeys);
+            simulation.Run(rounds: 10_000);
 
-            //var monkeys = input.GetLines()
-            //    .ChunkOn(l => l == "")
-            //    .Select(c => new Monkey(c, divideWorryLevel: true))
-            //    .ToList();
-            //var simulation = new Simulation(monkeys);
-            //simulation.Run(rounds: 10_000);
-
-            //return simulation.GetMonkeyBusinessLevel();
+            return simulation.GetMonkeyBusinessLevel();
         }
     }
 
@@ -38,20 +37,24 @@ namespace AdventOfCode2022.Day11
 
         private readonly Queue<BigInteger> _Items;
 
+        private readonly Func<BigInteger, BigInteger> _Manage;
+
         private readonly Func<BigInteger, BigInteger> _Operation;
 
         private readonly Func<BigInteger, int> _Recipient;
 
-        public Monkey(IList<string> description, bool divideWorryLevel = true)
+        public Monkey(IList<string> description, Func<BigInteger, BigInteger> manage)
         {
             var items = description[1].Split(": ")[1].Split(",");
             _Items = new(items.Select(BigInteger.Parse));
             var operationTokens = description[2].Split("new = old ")[1].Split(' ');
-            _Operation = CreateOperationDelegate(operationTokens[0], operationTokens[1], divideWorryLevel);
+            _Operation = CreateOperationDelegate(operationTokens[0], operationTokens[1]);
             var divider = description[3].Split("by ")[1];
             var trueRecipient = description[4].Split("monkey ")[1];
             var falseRecipient = description[5].Split("monkey ")[1];
             _Recipient = CreateRecipientDelegate(divider, trueRecipient, falseRecipient);
+            _Manage = manage;
+
         }
 
         public IEnumerable<(int Monkey, BigInteger Item)> ThrowItems()
@@ -59,6 +62,7 @@ namespace AdventOfCode2022.Day11
             while (_Items.TryDequeue(out var item))
             {
                 item = _Operation(item);
+                item = _Manage(item);
                 Inspections++;
                 var recipient = _Recipient(item);
 
@@ -71,7 +75,7 @@ namespace AdventOfCode2022.Day11
             _Items.Enqueue(item);
         }
 
-        private static Func<BigInteger, BigInteger> CreateOperationDelegate(string arithmeticOperator, string argument, bool divideWorryLevel)
+        private static Func<BigInteger, BigInteger> CreateOperationDelegate(string arithmeticOperator, string argument)
         {
             var item = Expression.Parameter(typeof(BigInteger));
             Expression argumentValue = argument switch
@@ -85,10 +89,6 @@ namespace AdventOfCode2022.Day11
                 "*" => Expression.Multiply(item, argumentValue),
                 _ => throw new InvalidOperationException()
             };
-            if (divideWorryLevel)
-            {
-                result = Expression.Divide(result, Expression.Constant((BigInteger)3));
-            }
             var lambda = Expression.Lambda<Func<BigInteger, BigInteger>>(result, new[] { item });
 
             return lambda.Compile();
