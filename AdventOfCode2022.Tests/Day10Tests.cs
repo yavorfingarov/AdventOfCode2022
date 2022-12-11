@@ -23,6 +23,11 @@ namespace AdventOfCode2022.Tests
         [Fact]
         public override void Part2()
         {
+        }
+
+        [Fact]
+        public void GetImage()
+        {
             var expected = Environment.NewLine +
                 "##..##..##..##..##..##..##..##..##..##.." + Environment.NewLine +
                 "###...###...###...###...###...###...###." + Environment.NewLine +
@@ -30,9 +35,10 @@ namespace AdventOfCode2022.Tests
                 "#####.....#####.....#####.....#####....." + Environment.NewLine +
                 "######......######......######......####" + Environment.NewLine +
                 "#######.......#######.......#######....." + Environment.NewLine;
-            var day = new Day10.Day10();
+            var cpu = new Cpu();
+            cpu.Run(TestCasesPart1.Single().Input);
 
-            var result = day.Part2(string.Join(Environment.NewLine, TestCasesPart1.Single().Input));
+            var result = Day10.Day10.GetImage(cpu.XValues);
 
             Assert.Equal(expected, result);
         }

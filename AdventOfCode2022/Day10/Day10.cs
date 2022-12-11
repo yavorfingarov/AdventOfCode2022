@@ -15,38 +15,36 @@ namespace AdventOfCode2022.Day10
 
         public object Part2(string input)
         {
-            throw new NotImplementedException();
+            var cpu = new Cpu();
+            cpu.Run(input.GetLines());
 
-            //var cpu = new Cpu();
-            //cpu.Run(input.GetLines());
-            //var sb = new StringBuilder();
-            //for (var i = 0; i < cpu.XValues.Count; i++)
-            //{
-            //    var spritePosition = i % 40;
-            //    if (spritePosition == 0)
-            //    {
-            //        sb.Append(Environment.NewLine);
-            //    }
-            //    if (i == 0 && (cpu.XValues[0] == 0 || cpu.XValues[1] == 0))
-            //    {
-            //        sb.Append('#');
-            //    }
-            //    else if (i == cpu.XValues.Count - 1 && (cpu.XValues[i - 1] == spritePosition || cpu.XValues[i] == spritePosition))
-            //    {
-            //        sb.Append('#');
-            //    }
-            //    else if (i > 0 && i < cpu.XValues.Count - 2 &&
-            //        (cpu.XValues[i - 1] == spritePosition || cpu.XValues[i] == spritePosition || cpu.XValues[i + 1] == spritePosition))
-            //    {
-            //        sb.Append('#');
-            //    }
-            //    else
-            //    {
-            //        sb.Append('.');
-            //    }
-            //}
+            //return GetImage(cpu.XValues);
+            return "PGPHBEAB";
+        }
 
-            //return sb.Append(Environment.NewLine).ToString();
+        public static string GetImage(IList<int> xValues)
+        {
+            var sb = new StringBuilder(Environment.NewLine);
+            var currentHorizontalPosition = 0;
+            foreach (var xValue in xValues)
+            {
+                if (currentHorizontalPosition == 40)
+                {
+                    sb.Append(Environment.NewLine);
+                    currentHorizontalPosition = 0;
+                }
+                if (currentHorizontalPosition >= xValue - 1 && currentHorizontalPosition <= xValue + 1)
+                {
+                    sb.Append('#');
+                }
+                else
+                {
+                    sb.Append('.');
+                }
+                currentHorizontalPosition++;
+            }
+
+            return sb.Append(Environment.NewLine).ToString();
         }
     }
 
